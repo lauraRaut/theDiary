@@ -65,9 +65,9 @@ namespace theDiary
             {
                 Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa N/Y");
                 var kesken = Console.ReadLine();
-                if (valinta == "N")
+                if (kesken == "N")
                 {
-                    kesken.InProgress = false;
+                    Topic.InProgress = false;
 
 
 
