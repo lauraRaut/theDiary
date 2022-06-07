@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+
 
 namespace theDiary
 {
@@ -8,79 +8,83 @@ namespace theDiary
         static void Main(string[] args)
         {
 
-            //testiversio
-          
+
+
             Topic tunniste = new Topic();
             {
                 Console.WriteLine("Syötä tunniste: ");
-                tunniste.tunniste = int.Parse(Console.ReadLine());
-               //testataan uudestaan
-                
+                int id = int.Parse(Console.ReadLine());
+
+
             }
 
             Topic title = new Topic();
             {
                 Console.WriteLine("Aiheen otsikko: ");
-                myTopic = Console.ReadLine();
- 
+                string otsikko = Console.ReadLine();
+
             }
 
             Topic description = new Topic();
             {
                 Console.WriteLine("Aiheen kuvaus: ");
-                Console.ReadLine();
+                string kuvaus = Console.ReadLine();
 
             }
 
             Topic EstimatedTimeToMaster = new Topic();
             {
                 Console.WriteLine("Kuinka kauan arvioit aikaa kuluvan tehtävään?: ");
-                Console.ReadLine();
+                int arvioituAika = int.Parse(Console.ReadLine());
             }
 
             Topic TimeSpent = new Topic();
 
             {
                 Console.WriteLine("Kauan käytit aikaa?: ");
-                Console.ReadLine();
+                int kaytettyAika = int.Parse(Console.ReadLine());
 
             }
 
             Topic Source = new Topic();
             {
                 Console.WriteLine("Mahdollinen lähde, esim. web url tai kirja");
-                Console.ReadLine();
+                string lahde = Console.ReadLine();
 
             }
 
             Topic StartLearningDate = new Topic();
             {
-                Console.WriteLine("Datetime - aloitusaika: ");
-                Console.ReadLine();
+                Console.WriteLine("Datetime - aloitusaika - syötä muodossa xx,xx,xxxx ");
+                DateTime aloitus = Convert.ToDateTime(Console.ReadLine());
             }
 
 
             Topic InProgress = new Topic();
-         
-            {
-                Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa kyllä/ei");
-                Console.ReadLine();
-            }
 
-            Topic CompletionDate = new Topic();
             {
-                Console.WriteLine("Koska aiheen opiskelu päättyy? ");
-                Console.ReadLine();
+                Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa N/Y");
+                var kesken = Console.ReadLine();
+                if (valinta == "N")
+                {
+                    kesken.InProgress = false;
+
+
+
+                }
+
+                Topic CompletionDate = new Topic();
+                {
+                    Console.WriteLine("Koska aiheen opiskelu päättyy? - Syötä muodossa xx.xx.xxxx ");
+                    DateTime paatos = Convert.ToDateTime(Console.ReadLine());
+                }
+
+
             }
-            
-           
         }
 
         class Topic
         {
-
-
-           // private static List<Topic> topics = new List<Topic>();
 
             public int tunniste { get; set; }
             public string title { get; set; }
@@ -90,12 +94,9 @@ namespace theDiary
             public string source { get; set; }
             public DateTime StartLearningDate { get; set; }
             public bool InProgress { get; set; }
-            public DateTime CompletionDate {get; set;}
+            public DateTime CompletionDate { get; set; }
 
-            public Topic (int aTunniste)
-            {
-                tunniste = aTunniste;
-            }
+           
 
         }
 
