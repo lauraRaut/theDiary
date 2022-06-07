@@ -80,7 +80,7 @@ namespace theDiary
         {
 
 
-            private static List<Topic> topics = new List<Topic>();
+           // private static List<Topic> topics = new List<Topic>();
 
             public int tunniste { get; set; }
             public string title { get; set; }
