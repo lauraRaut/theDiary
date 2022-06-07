@@ -8,7 +8,7 @@ namespace theDiary
         static void Main(string[] args)
         {
 
-
+            //testiversio
           
             Topic tunniste = new Topic();
             {
