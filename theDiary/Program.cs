@@ -14,7 +14,7 @@ namespace theDiary
             {
                 Console.WriteLine("Syötä tunniste: ");
                 tunniste.tunniste = int.Parse(Console.ReadLine());
-               
+               //testataan uudestaan
                 
             }
 
