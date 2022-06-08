@@ -21,49 +21,50 @@ namespace theDiary
                 string title = Console.ReadLine();
            
                 Console.WriteLine("Aiheen kuvaus: ");
-                string kuvaus = Console.ReadLine();
+                string description = Console.ReadLine();
 
       
                 Console.WriteLine("Kuinka kauan arvioit aikaa kuluvan tehtävään?: ");
-                int arvioituAika = int.Parse(Console.ReadLine());
+                int EstimatedTimeToMaster = int.Parse(Console.ReadLine());
         
 
                 Console.WriteLine("Kauan käytit aikaa?: ");
-                int kaytettyAika = int.Parse(Console.ReadLine());
+                int TimeSpent = int.Parse(Console.ReadLine());
 
         
                 Console.WriteLine("Mahdollinen lähde, esim. web url tai kirja");
-                string lahde = Console.ReadLine();
+                string source = Console.ReadLine();
 
        
                 Console.WriteLine("Datetime - aloitusaika - syötä muodossa xx,xx,xxxx ");
-                DateTime aloitus = Convert.ToDateTime(Console.ReadLine());
+                DateTime StartLearningDate = Convert.ToDateTime(Console.ReadLine());
             
 
                 Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa N/Y");
-                var kesken = Console.ReadLine();
-            if (kesken == "N")
+                var InProgress = Console.ReadLine();
+            if (InProgress == "N")
             {
                 topic.InProgress = false;
+                
             }
-            if (kesken == "Y")
+            if (InProgress == "Y")
             {
                 topic.InProgress = true;
+                
             }
 
-
-            Topic CompletionDate = new Topic();
+           
             {
                 Console.WriteLine("Koska aiheen opiskelu päättyy? - Syötä muodossa xx,xx,xxxx ");
-                DateTime paatos = Convert.ToDateTime(Console.ReadLine());
+                DateTime CompletionDate = Convert.ToDateTime(Console.ReadLine());
             }
 
-        
+
 
             if (File.Exists(polku))
             {
 
-                File.AppendAllText(polku, Convert.ToString(topic.Id + topic.title + Environment.NewLine));
+                File.AppendAllText(polku, Convert.ToString(topic.Id + topic.title + topic.description + topic.EstimatedTimeToMaster + topic.TimeSpent + topic.source + topic.StartLearningDate + topic.InProgress + topic.CompletionDate) + Environment.NewLine);
 
                 try
                 {
