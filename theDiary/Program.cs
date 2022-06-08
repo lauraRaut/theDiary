@@ -73,7 +73,19 @@ namespace theDiary
 
                     for (int i = 0; i < lines.Length; i++)
                     {
-                        Console.WriteLine(lines[i]);
+                        Console.WriteLine("Haluatko tulostaa id-listan, n/y: ");
+                        var answer = Console.ReadLine();
+
+                        if (answer == "y")
+                        {
+                            Console.WriteLine(lines[i]);
+                            break;
+                        }
+                        if (answer == "n")
+                                {
+                            Console.WriteLine("Kiitos tiedoista.");
+                            break;
+                        }
                     }
                 }
 
