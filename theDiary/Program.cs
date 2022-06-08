@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.IO;
 
 namespace theDiary
 {
@@ -7,7 +7,7 @@ namespace theDiary
     {
         static void Main(string[] args)
         {
-
+            String polku = @"C:\Users\laura\source\repos\theDiary\theDiary\theDiaryReadline.txt";
 
 
             Topic tunniste = new Topic();
@@ -60,7 +60,7 @@ namespace theDiary
             }
 
 
-            Topic InProgress = new Topic();
+            /*Topic InProgress = new Topic();
 
             {
                 Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa N/Y");
@@ -71,16 +71,43 @@ namespace theDiary
 
 
 
-                }
 
-                Topic CompletionDate = new Topic();
-                {
-                    Console.WriteLine("Koska aiheen opiskelu päättyy? - Syötä muodossa xx.xx.xxxx ");
-                    DateTime paatos = Convert.ToDateTime(Console.ReadLine());
-                }
+                }*/
 
-
+            Topic CompletionDate = new Topic();
+            {
+                Console.WriteLine("Koska aiheen opiskelu päättyy? - Syötä muodossa xx,xx,xxxx ");
+                DateTime paatos = Convert.ToDateTime(Console.ReadLine());
             }
+
+        
+
+            if (File.Exists(polku))
+            {
+                File.AppendAllText(polku, tunniste + Environment.NewLine);
+
+                try
+                {
+                    String[] lines;
+                    lines = File.ReadAllLines(polku);
+
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        Console.WriteLine(lines[i]);
+                    }
+                }
+
+                catch(Exception e)
+                {
+                    Console.WriteLine("Tiedostoa ei voida lukea.");
+                    Console.WriteLine(e.Message);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Tiedostoa ei löydy");
+            }
+            Console.ReadKey();
         }
 
         class Topic
@@ -96,7 +123,7 @@ namespace theDiary
             public bool InProgress { get; set; }
             public DateTime CompletionDate { get; set; }
 
-           
+
 
         }
 
