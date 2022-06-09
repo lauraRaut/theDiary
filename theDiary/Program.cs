@@ -36,38 +36,50 @@ namespace theDiary
                topic.source = Console.ReadLine();
 
        
-                Console.WriteLine("Datetime - aloitusaika - syötä muodossa xx,xx,xxxx ");
+                Console.WriteLine("Datetime - aloitusaika - syötä muodossa xx/xx/xxxx ");
                 topic.StartLearningDate = Convert.ToDateTime(Console.ReadLine());
-            
 
-               /* Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa N/Y");
-                topic.InProgress = Convert.ToBoolean(Console.ReadLine());
-
-            if (topic.InProgressInProgress == "N")
-            {
-                topic.InProgress = false;
                 
-            }
-            if (InProgress == "Y")
+                Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa n/y");
+                string InProgress = Console.ReadLine();
+           
+
+            if (InProgress == "y")
             {
                 topic.InProgress = true;
-                
-            }*/
+                Console.WriteLine("Tsemppiä!");
 
-           
+            }
+            else if (InProgress == "n")
             {
-                Console.WriteLine("Koska aiheen opiskelu päättyy? - Syötä muodossa xx/xx/xxxx ");
-                DateTime CompletionDate = Convert.ToDateTime(Console.ReadLine());
+                topic.InProgress = false;
+                Console.WriteLine("Koska aiheen opiskelu päättyi? - Syötä muodossa xx/xx/xxxx ");
+                topic.CompletionDate = Convert.ToDateTime(Console.ReadLine());
+
             }
 
 
+            // Muista tulostaa myös käytetty aika
+
+
+            /* Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa N/Y");
+             topic.InProgress = Convert.ToBoolean(Console.ReadLine());
+
+         if (topic.InProgressInProgress == "N")
+         {
+             topic.InProgress = false;
+
+         }
+         if (InProgress == "Y")
+         {
+             topic.InProgress = true;
+
+         }*/
 
             if (File.Exists(polku))
             {
 
                 File.AppendAllText(polku, Convert.ToString(topic.Id + topic.title + topic.description + topic.EstimatedTimeToMaster + topic.TimeSpent + topic.source + topic.StartLearningDate + topic.InProgress + topic.CompletionDate) + Environment.NewLine);
-
-              
 
                /* try
                 {
@@ -81,7 +93,8 @@ namespace theDiary
 
                         if (answer == "y")
                         {
-                            Console.WriteLine(topic.Id + topic.title + topic.description + topic.EstimatedTimeToMaster + topic.TimeSpent + topic.source + topic.StartLearningDate + topic.InProgress + topic.CompletionDate);
+                        Console.WriteLine(topic.Id + "\n" + topic.title + topic.description + topic.EstimatedTimeToMaster + topic.TimeSpent + topic.source + topic.StartLearningDate.ToShortDateString() + topic.InProgress + topic.CompletionDate.ToShortDateString()); 
+                            
                             
                        
                         }
