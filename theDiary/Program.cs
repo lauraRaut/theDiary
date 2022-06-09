@@ -18,31 +18,32 @@ namespace theDiary
                 topic.Id = int.Parse(Console.ReadLine());
 
                 Console.WriteLine("Aiheen otsikko: ");
-                string title = Console.ReadLine();
+                topic.title = Console.ReadLine();
            
                 Console.WriteLine("Aiheen kuvaus: ");
-                string description = Console.ReadLine();
+                topic.description = Console.ReadLine();
 
       
                 Console.WriteLine("Kuinka kauan arvioit aikaa kuluvan tehtävään?: ");
-                int EstimatedTimeToMaster = int.Parse(Console.ReadLine());
+                topic.EstimatedTimeToMaster = int.Parse(Console.ReadLine());
         
 
                 Console.WriteLine("Kauan käytit aikaa?: ");
-                int TimeSpent = int.Parse(Console.ReadLine());
+                topic.TimeSpent = int.Parse(Console.ReadLine());
 
         
                 Console.WriteLine("Mahdollinen lähde, esim. web url tai kirja");
-                string source = Console.ReadLine();
+               topic.source = Console.ReadLine();
 
        
                 Console.WriteLine("Datetime - aloitusaika - syötä muodossa xx,xx,xxxx ");
-                DateTime StartLearningDate = Convert.ToDateTime(Console.ReadLine());
+                topic.StartLearningDate = Convert.ToDateTime(Console.ReadLine());
             
 
-                Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa N/Y");
-                var InProgress = Console.ReadLine();
-            if (InProgress == "N")
+               /* Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa N/Y");
+                topic.InProgress = Convert.ToBoolean(Console.ReadLine());
+
+            if (topic.InProgressInProgress == "N")
             {
                 topic.InProgress = false;
                 
@@ -51,11 +52,11 @@ namespace theDiary
             {
                 topic.InProgress = true;
                 
-            }
+            }*/
 
            
             {
-                Console.WriteLine("Koska aiheen opiskelu päättyy? - Syötä muodossa xx,xx,xxxx ");
+                Console.WriteLine("Koska aiheen opiskelu päättyy? - Syötä muodossa xx/xx/xxxx ");
                 DateTime CompletionDate = Convert.ToDateTime(Console.ReadLine());
             }
 
@@ -66,34 +67,37 @@ namespace theDiary
 
                 File.AppendAllText(polku, Convert.ToString(topic.Id + topic.title + topic.description + topic.EstimatedTimeToMaster + topic.TimeSpent + topic.source + topic.StartLearningDate + topic.InProgress + topic.CompletionDate) + Environment.NewLine);
 
-                try
+              
+
+               /* try
                 {
                     String[] lines;
                     lines = File.ReadAllLines(polku);
 
-                    for (int i = 0; i < lines.Length; i++)
+                    for (int i = 0; i < lines.Length; i++) */
                     {
                         Console.WriteLine("Haluatko tulostaa id-listan, n/y: ");
                         var answer = Console.ReadLine();
 
                         if (answer == "y")
                         {
-                            Console.WriteLine(lines[i]);
-                            break;
+                            Console.WriteLine(topic.Id + topic.title + topic.description + topic.EstimatedTimeToMaster + topic.TimeSpent + topic.source + topic.StartLearningDate + topic.InProgress + topic.CompletionDate);
+                            
+                       
                         }
-                        if (answer == "n")
+                        else if (answer == "n")
                                 {
                             Console.WriteLine("Kiitos tiedoista.");
-                            break;
+                            
                         }
                     }
-                }
+               /* }
 
                 catch(Exception e)
                 {
                     Console.WriteLine("Tiedostoa ei voida lukea.");
-                    Console.WriteLine(e.Message);
-                }
+                    Console.WriteLine(e.Message); */
+                
             }
             else
             {
