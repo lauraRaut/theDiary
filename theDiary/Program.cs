@@ -38,6 +38,7 @@ namespace theDiary
        
                 
                 topic.StartLearningDate = new DateTime(2020, 12, 24);
+                Console.WriteLine(topic.StartLearningDate);
                
                 
                 Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa n/y");
@@ -80,7 +81,7 @@ namespace theDiary
             {
 
                 File.AppendAllText(polku, Convert.ToString(topic.Id + topic.title + topic.description + topic.EstimatedTimeToMaster + topic.TimeSpent + topic.source + topic.StartLearningDate + topic.InProgress + topic.CompletionDate) + Environment.NewLine);
-
+               
                /* try
                 {
                     String[] lines;
@@ -93,11 +94,11 @@ namespace theDiary
 
                         if (answer == "y")
                         {
-                        Console.WriteLine(topic.Id + "\n" + topic.title + "\n" + topic.description + "\n"  + topic.EstimatedTimeToMaster + "\n" + topic.TimeSpent + "\n" + topic.source + "\n" + topic.StartLearningDate.ToShortDateString() + "\n" + topic.InProgress + "\n" + topic.CompletionDate.ToShortDateString()); 
-                            
-                            
-                       
-                        }
+                        Console.WriteLine(topic.Id + "\n" + topic.title + "\n" + topic.description + "\n"  + topic.EstimatedTimeToMaster + "\n" + topic.TimeSpent + "\n" + topic.source + "\n" + topic.StartLearningDate.ToShortDateString() + "\n" + topic.InProgress + "\n" + topic.CompletionDate.ToShortDateString());
+                        //Console.WriteLine(File.ReadAllText(polku));
+
+
+                    }
                         else if (answer == "n")
                                 {
                             Console.WriteLine("Kiitos tiedoista.");
