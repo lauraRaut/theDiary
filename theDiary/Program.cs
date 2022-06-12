@@ -108,7 +108,7 @@ namespace theDiary
                                 {
                             Console.WriteLine("Kiitos tiedoista.");
                             
-                        }
+                        }//testi
                     }
                /* }
 
