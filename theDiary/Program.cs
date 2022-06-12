@@ -1,6 +1,9 @@
 ﻿using System;
 using System.IO;
 
+
+//Päivitän tämän sekametelin ensi viikolla Checkpointia tehdessä opittujen taitojen tasolle :) 
+//- Laura
 namespace theDiary
 {
     class Program
@@ -96,7 +99,9 @@ namespace theDiary
                         {
                         Console.WriteLine(topic.Id + "\n" + topic.title + "\n" + topic.description + "\n"  + topic.EstimatedTimeToMaster + "\n" + topic.TimeSpent + "\n" + topic.source + "\n" + topic.StartLearningDate.ToShortDateString() + "\n" + topic.InProgress + "\n" + topic.CompletionDate.ToShortDateString());
                         //Console.WriteLine(File.ReadAllText(polku));
-
+                      
+                        
+                        //File.ReadAllTtext kehityksessä niin, että tulostaa vain tämän kierroksen. 
 
                     }
                         else if (answer == "n")
