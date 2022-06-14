@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 
 //Päivitän tämän sekametelin ensi viikolla Checkpointia tehdessä opittujen taitojen tasolle :) 
@@ -8,45 +10,47 @@ namespace theDiary
 {
     class Program
     {
-      // private static string topic;
+        // private static string topic;
 
         static void Main(string[] args)
         {
             String polku = @"C:\Users\laura\source\repos\theDiary\theDiary\theDiaryReadline.txt";
 
+
+            int sSearch;
+            List<Topic> tList = new List<Topic>();
+
+
             Topic topic = new Topic();
 
-            
-                Console.WriteLine("Syötä tunniste: ");
-                topic.Id = int.Parse(Console.ReadLine());
+            tList.Add(new Topic());
+            Console.WriteLine("Syötä tunniste: ");
+            tList[0].Id = int.Parse(Console.ReadLine());
 
-                Console.WriteLine("Aiheen otsikko: ");
-                topic.title = Console.ReadLine();
-           
-                Console.WriteLine("Aiheen kuvaus: ");
-                topic.description = Console.ReadLine();
+            tList.Add(new Topic());
+            Console.WriteLine("Aiheen otsikko: ");
+            tList[1].title = Console.ReadLine();
 
-      
-                Console.WriteLine("Kuinka kauan arvioit aikaa kuluvan tehtävään?: ");
-                topic.EstimatedTimeToMaster = int.Parse(Console.ReadLine());
-        
+            Console.WriteLine("Aiheen kuvaus: ");
+            topic.description = Console.ReadLine();
 
-                Console.WriteLine("Kauan käytit aikaa?: ");
-                topic.TimeSpent = int.Parse(Console.ReadLine());
+            Console.WriteLine("Kuinka kauan arvioit aikaa kuluvan tehtävään?: ");
+            topic.EstimatedTimeToMaster = int.Parse(Console.ReadLine());
 
-        
-                Console.WriteLine("Mahdollinen lähde, esim. web url tai kirja");
-               topic.source = Console.ReadLine();
+            Console.WriteLine("Kauan käytit aikaa?: ");
+            topic.TimeSpent = int.Parse(Console.ReadLine());
 
-       
-                
-                topic.StartLearningDate = new DateTime(2020, 12, 24);
-                Console.WriteLine(topic.StartLearningDate);
-               
-                
-                Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa n/y");
-                string InProgress = Console.ReadLine();
-           
+            Console.WriteLine("Mahdollinen lähde, esim. web url tai kirja");
+            topic.source = Console.ReadLine();
+
+            topic.StartLearningDate = new DateTime(2020, 12, 24);
+            Console.WriteLine(topic.StartLearningDate);
+
+            Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa n/y");
+            string InProgress = Console.ReadLine();
+
+
+
 
             if (InProgress == "y")
             {
@@ -63,71 +67,61 @@ namespace theDiary
             }
 
 
-            // Muista tulostaa myös käytetty aika
 
-
-            /* Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa N/Y");
-             topic.InProgress = Convert.ToBoolean(Console.ReadLine());
-
-         if (topic.InProgressInProgress == "N")
-         {
-             topic.InProgress = false;
-
-         }
-         if (InProgress == "Y")
-         {
-             topic.InProgress = true;
-
-         }*/
 
             if (File.Exists(polku))
             {
 
                 File.AppendAllText(polku, Convert.ToString(topic.Id + topic.title + topic.description + topic.EstimatedTimeToMaster + topic.TimeSpent + topic.source + topic.StartLearningDate + topic.InProgress + topic.CompletionDate) + Environment.NewLine);
-               
-               /* try
+
+
                 {
-                    String[] lines;
-                    lines = File.ReadAllLines(polku);
+                    Console.WriteLine("Haluatko tulostaa id-listan, n/y: ");
+                    var answer = Console.ReadLine();
 
-                    for (int i = 0; i < lines.Length; i++) */
+                    if (answer == "y")
                     {
-                        Console.WriteLine("Haluatko tulostaa id-listan, n/y: ");
-                        var answer = Console.ReadLine();
-
-                        if (answer == "y")
-                        {
-                        Console.WriteLine(topic.Id + "\n" + topic.title + "\n" + topic.description + "\n"  + topic.EstimatedTimeToMaster + "\n" + topic.TimeSpent + "\n" + topic.source + "\n" + topic.StartLearningDate.ToShortDateString() + "\n" + topic.InProgress + "\n" + topic.CompletionDate.ToShortDateString());
+                        Console.WriteLine(topic.Id + "\n" + topic.title + "\n" + topic.description + "\n" + topic.EstimatedTimeToMaster + "\n" + topic.TimeSpent + "\n" + topic.source + "\n" + topic.StartLearningDate.ToShortDateString() + "\n" + topic.InProgress + "\n" + topic.CompletionDate.ToShortDateString());
                         //Console.WriteLine(File.ReadAllText(polku));
-                      
-                        
+
+
                         //File.ReadAllTtext kehityksessä niin, että tulostaa vain tämän kierroksen. 
 
                     }
-                        else if (answer == "n")
-                                {
-                            Console.WriteLine("Kiitos tiedoista.");
-                            
-                        }//testi
-                    }
-               /* }
+                    else if (answer == "n")
+                    {
+                        Console.WriteLine("Kiitos tiedoista.");
 
-                catch(Exception e)
-                {
-                    Console.WriteLine("Tiedostoa ei voida lukea.");
-                    Console.WriteLine(e.Message); */
-                
+                    }
+                }
+
             }
             else
             {
                 Console.WriteLine("Tiedostoa ei löydy");
             }
 
-            Console.ReadKey();
+            Console.WriteLine("Hae Id: ");
+            sSearch = int.Parse(Console.ReadLine());
+
            
+            Topic oFound = tList.Find(oTop => oTop.Id.Equals(sSearch));
+
+            if (oFound != null)
+            {
+                Console.WriteLine("Id löytyi!");
+            }
+            else
+            {
+                Console.WriteLine("Not Found");
+            }
+
+
+            Console.ReadLine();
+
+
         }
-
-
+    
 
         class Topic
         {
