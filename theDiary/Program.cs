@@ -104,7 +104,6 @@ namespace theDiary
                 Console.WriteLine("Tiedostoa ei löydy");
             }
 
-
             tList.Add(topic);
 
 
@@ -136,7 +135,27 @@ namespace theDiary
             {
                 Console.WriteLine("Otikkoa ei löytynyt");
             }
-            Topic otsikkotesti = null;
+
+            Console.WriteLine("Haluatko päivittää Id:n? n/y: ");
+            var paivitaID = Console.ReadLine();
+
+            if (paivitaID == "y")
+            {
+                foreach (var aId in tList.Select(a => a.Id))
+                {
+                    Console.WriteLine("Anna uusi ID: ");
+                    topic.Id = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Uusi ID on: " + topic.Id);
+
+                }
+
+            }
+            else if (paivitaID == "n")
+            {
+                Console.WriteLine("Kiitos tiedoista.");
+
+            }
+
 
 
         }
