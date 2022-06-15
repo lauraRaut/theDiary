@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
+
 //Päivitän tämän sekametelin ensi viikolla Checkpointia tehdessä opittujen taitojen tasolle :) 
 //- Laura
 namespace theDiary
@@ -18,18 +19,20 @@ namespace theDiary
 
 
             int sSearch;
+            string otsikonHaku;
+
             List<Topic> tList = new List<Topic>();
 
 
             Topic topic = new Topic();
 
-            tList.Add(new Topic());
+            
             Console.WriteLine("Syötä tunniste: ");
-            tList[0].Id = int.Parse(Console.ReadLine());
+            topic.Id = int.Parse(Console.ReadLine());
 
-            tList.Add(new Topic());
+            
             Console.WriteLine("Aiheen otsikko: ");
-            tList[1].title = Console.ReadLine();
+            topic.title = Console.ReadLine();
 
             Console.WriteLine("Aiheen kuvaus: ");
             topic.description = Console.ReadLine();
@@ -44,7 +47,7 @@ namespace theDiary
             topic.source = Console.ReadLine();
 
             topic.StartLearningDate = new DateTime(2020, 12, 24);
-            Console.WriteLine(topic.StartLearningDate);
+            Console.WriteLine("Aloituspäivä: " + topic.StartLearningDate);
 
             Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa n/y");
             string InProgress = Console.ReadLine();
@@ -101,8 +104,15 @@ namespace theDiary
                 Console.WriteLine("Tiedostoa ei löydy");
             }
 
+
+            tList.Add(topic);
+
+
             Console.WriteLine("Hae Id: ");
             sSearch = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Hae otsikko: ");
+            otsikonHaku = Console.ReadLine();
 
            
             Topic oFound = tList.Find(oTop => oTop.Id.Equals(sSearch));
@@ -113,11 +123,20 @@ namespace theDiary
             }
             else
             {
-                Console.WriteLine("Not Found");
+                Console.WriteLine("Id ei löytynyt");
             }
 
+            Topic otsikko = tList.Find(oTit => oTit.title.Equals(otsikonHaku));
 
-            Console.ReadLine();
+            if (otsikko != null)
+            {
+                Console.WriteLine("Otsikko löytyi!");
+            }
+            else
+            {
+                Console.WriteLine("Otikkoa ei löytynyt");
+            }
+            Topic otsikkotesti = null;
 
 
         }
