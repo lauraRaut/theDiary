@@ -18,6 +18,7 @@ namespace theDiary
             String polku = @"C:\Users\laura\source\repos\theDiary\theDiary\theDiaryReadline.txt";
 
 
+
             int sSearch;
             string otsikonHaku;
 
@@ -26,11 +27,11 @@ namespace theDiary
 
             Topic topic = new Topic();
 
-            
-            Console.WriteLine("Syötä tunniste: ");
+
+            Console.WriteLine("Syötä id: ");
             topic.Id = int.Parse(Console.ReadLine());
 
-            
+
             Console.WriteLine("Aiheen otsikko: ");
             topic.title = Console.ReadLine();
 
@@ -113,7 +114,7 @@ namespace theDiary
             Console.WriteLine("Hae otsikko: ");
             otsikonHaku = Console.ReadLine();
 
-           
+
             Topic oFound = tList.Find(oTop => oTop.Id.Equals(sSearch));
 
             if (oFound != null)
@@ -156,10 +157,66 @@ namespace theDiary
 
             }
 
+            Console.WriteLine("Haluatko päivittää otsikon? n/y: ");
+            var paivitaOtsikko = Console.ReadLine();
 
+            if (paivitaOtsikko == "y")
+            {
+                foreach (var aOtsikko in tList.Select(a => a.title))
+                {
+                    Console.WriteLine("Anna uusi otsikko: ");
+                    topic.title = Console.ReadLine();
+                    Console.WriteLine("Uusi otsikko on: " + topic.title);
+                }
+            }
+            else if (paivitaOtsikko == "n")
+            {
+                Console.WriteLine("Kiitos tiedoista.");
+
+            }
+
+            Console.WriteLine("Haluatko poistaa ID:n? y/n? ");
+            var poistaId = Console.ReadLine();
+            
+            if(poistaId == "y")
+            {
+                //tList.RemoveAll(x => x.Id == poistaId);
+                Console.WriteLine("Anna poistettava ID-numero: ");
+                int chunkID = int.Parse(Console.ReadLine());
+                tList.RemoveAll(x => x.Id == chunkID);
+                Console.WriteLine(chunkID + " on nyt poistettu");
+            }
+
+            else
+            {
+                Console.WriteLine("Id säilytettiin.");
+            }
+
+            Console.WriteLine("Haluatko poistaa otsikon? y/n? ");
+            var poistaOtsikko = Console.ReadLine();
+
+            if (poistaOtsikko == "y")
+            {
+                //tList.RemoveAll(x => x.Id == poistaId);
+                Console.WriteLine("Anna poistettava otsikko: ");
+                string chunkTitle = Console.ReadLine();
+                tList.RemoveAll(x => x.title == chunkTitle);
+                Console.WriteLine(chunkTitle + " on nyt poistettu");
+            }
+
+            else
+            {
+                Console.WriteLine("Otsikko säilytettiin.");
+            }
+
+
+            Console.WriteLine(File.ReadAllText(polku));
+        
+        }
+           
 
         }
-    
+
 
         class Topic
         {
@@ -179,4 +236,3 @@ namespace theDiary
         }
 
     }
-}
