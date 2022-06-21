@@ -42,7 +42,7 @@ namespace theDiary
             topic.EstimatedTimeToMaster = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Kauan käytit aikaa?: ");
-            topic.TimeSpent = int.Parse(Console.ReadLine());
+            topic.TimeSpent = double.Parse(Console.ReadLine());
 
             Console.WriteLine("Mahdollinen lähde, esim. web url tai kirja");
             topic.source = Console.ReadLine();
@@ -53,7 +53,7 @@ namespace theDiary
             Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa n/y");
             string InProgress = Console.ReadLine();
 
-
+            //clear tekstin tyhjentämään
 
 
             if (InProgress == "y")
@@ -67,6 +67,8 @@ namespace theDiary
                 topic.InProgress = false;
                 Console.WriteLine("Koska aiheen opiskelu päättyi? - Syötä muodossa xx/xx/xxxx ");
                 topic.CompletionDate = Convert.ToDateTime(Console.ReadLine());
+                TimeSpan opiskeltuAika = topic.CompletionDate - topic.StartLearningDate;
+                Console.WriteLine("Käytit opiskeluun aikaa: " + opiskeltuAika.TotalDays + " päivää");
 
             }
 
