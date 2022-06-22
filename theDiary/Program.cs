@@ -27,7 +27,7 @@ namespace theDiary
 
 
             int sSearch;
-            string otsikonHaku;
+
 
             List<Topic> tList = new List<Topic>();
 
@@ -117,109 +117,11 @@ namespace theDiary
             tList.Add(topic);
 
 
-                Console.WriteLine("Hae Id: ");
-                sSearch = int.Parse(Console.ReadLine());
-
-                Console.WriteLine("Hae otsikko: ");
-                otsikonHaku = Console.ReadLine();
 
 
-                Topic oFound = tList.Find(oTop => oTop.Id.Equals(sSearch));
-
-                if (oFound != null)
-                {
-                    Console.WriteLine("Id löytyi!");
-                }
-                else
-                {
-                    Console.WriteLine("Id ei löytynyt");
-                }
-
-                Topic otsikko = tList.Find(oTit => oTit.title.Equals(otsikonHaku));
-
-                if (otsikko != null)
-                {
-                    Console.WriteLine("Otsikko löytyi!");
-                }
-                else
-                {
-                    Console.WriteLine("Otikkoa ei löytynyt");
-                }
-
-                Console.WriteLine("Haluatko päivittää Id:n? n/y: ");
-                var paivitaID = Console.ReadLine();
-
-                if (paivitaID == "y")
-                {
-                    foreach (var aId in tList.Select(a => a.Id))
-                    {
-                        Console.WriteLine("Anna uusi ID: ");
-                        topic.Id = int.Parse(Console.ReadLine());
-                        Console.WriteLine("Uusi ID on: " + topic.Id);
-
-                    }
-
-                }
-                else if (paivitaID == "n")
-                {
-                    Console.WriteLine("Kiitos tiedoista.");
-
-                }
-
-                Console.WriteLine("Haluatko päivittää otsikon? n/y: ");
-                var paivitaOtsikko = Console.ReadLine();
-
-                if (paivitaOtsikko == "y")
-                {
-                    foreach (var aOtsikko in tList.Select(a => a.title))
-                    {
-                        Console.WriteLine("Anna uusi otsikko: ");
-                        topic.title = Console.ReadLine();
-                        Console.WriteLine("Uusi otsikko on: " + topic.title);
-                    }
-                }
-                else if (paivitaOtsikko == "n")
-                {
-                    Console.WriteLine("Kiitos tiedoista.");
-
-                }
-
-                Console.WriteLine("Haluatko poistaa ID:n? y/n? ");
-                var poistaId = Console.ReadLine();
-
-                if (poistaId == "y")
-                {
-                    //tList.RemoveAll(x => x.Id == poistaId);
-                    Console.WriteLine("Anna poistettava ID-numero: ");
-                    int chunkID = int.Parse(Console.ReadLine());
-                    tList.RemoveAll(x => x.Id == chunkID);
-                    Console.WriteLine(chunkID + " on nyt poistettu");
-                }
-
-                else
-                {
-                    Console.WriteLine("Id säilytettiin.");
-                }
-
-                Console.WriteLine("Haluatko poistaa otsikon? y/n? ");
-                var poistaOtsikko = Console.ReadLine();
-
-                if (poistaOtsikko == "y")
-                {
-                    //tList.RemoveAll(x => x.Id == poistaId);
-                    Console.WriteLine("Anna poistettava otsikko: ");
-                    string chunkTitle = Console.ReadLine();
-                    tList.RemoveAll(x => x.title == chunkTitle);
-                    Console.WriteLine(chunkTitle + " on nyt poistettu");
-                }
-
-                else
-                {
-                    Console.WriteLine("Otsikko säilytettiin.");
-                }
 
 
-                Console.WriteLine(File.ReadAllText(polku));
+           
 
 
             using (theDiaryContext testiYhteys = new theDiaryContext())
@@ -242,19 +144,205 @@ namespace theDiary
                 testiYhteys.Topics.Add(uusi);
                 testiYhteys.SaveChanges();
 
-                taulu = testiYhteys.Topics.Select(topikki => topikki);
-                foreach (var rivi in taulu)
+                /* taulu = testiYhteys.Topics.Select(topikki => topikki);
+                 foreach (var rivi in taulu)
+                 {
+                     Console.WriteLine(rivi.Description);
+                 }*/
+
+
+               
+
+                Console.WriteLine("Anna otsikko: ");
+                string testihaku = Console.ReadLine();
+                var hakukannasta = testiYhteys.Topics.Where(otsikko => otsikko.Title == testihaku);
+                //jos haettaisiin kaikki otsikot tietokannasta, select Wheren tilalle ja otsikko => otsikko)
+
+                foreach(var haetaanvaan in hakukannasta)
                 {
-                    Console.WriteLine(rivi.Description);
+                    Console.WriteLine(haetaanvaan.Title);
                 }
+                testiYhteys.SaveChanges();
+
+
+                var viimeisin = testiYhteys.Topics.Max(topikki => topikki.Id);
+
+                Console.WriteLine("Viimeisin Id on: " + viimeisin);
+                //jos haluaisi lisätä yhden lisää juoksevasti koodissa
+                // yllä olisi luotuna puvlic static int GlobalID = 1;
+                //GlobalID = viimeisin++;
+
+                Console.WriteLine("Hae Id: ");
+                sSearch = int.Parse(Console.ReadLine());
+                var haku = testiYhteys.Topics.Where(x => x.Id == sSearch).Single();
+                // haku.Id = topic.Id;
+                // testiYhteys.SaveChanges();
+
+                if (sSearch == haku.Id)
+                {
+                    Console.WriteLine(haku.Id + " Löytyi.");
+                }
+                else
+                {
+                    Console.WriteLine("Id:tä ei löydy.");
+                }
+
+                Console.WriteLine("Haluatko poistaa haetun ID:n? y/n? ");
+                var poistaOtsikko = Console.ReadLine();
+
+                if (poistaOtsikko == "y")
+                {
+                    //tList.RemoveAll(x => x.Id == poistaId);
+                    testiYhteys.Topics.Remove(haku);
+                    testiYhteys.SaveChanges();
+                }
+
+                if (poistaOtsikko == "n")
+                {
+                    Console.WriteLine("ID:tä ei poistettu.");
+                }
+
+
+                /*Topic oFound = tList.Find(oTop => oTop.Id.Equals(sSearch));
+
+                if (oFound != null)
+                {
+                    Console.WriteLine("Id löytyi!");
+                }
+                else
+                {
+                    Console.WriteLine("Id ei löytynyt");
+                }
+
+                Topic otsikko = tList.Find(oTit => oTit.title.Equals(otsikonHaku));
+
+                if (otsikko != null)
+                {
+                    Console.WriteLine("Otsikko löytyi!");
+                }
+                else
+                {
+                    Console.WriteLine("Otikkoa ei löytynyt");
+                }*/
+
+
+
+                Console.WriteLine("Haluatko päivittää otsikon? n/y: ");
+                var paivitaOtsikko = Console.ReadLine();
+
+                if (paivitaOtsikko == "y")
+                {
+                    foreach (var aOtsikko in tList.Select(a => a.title))
+                    {
+                        Console.WriteLine("Minkä Id:n otsikon haluat päivittää?");
+                        int updateID = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Anna uusi otsikko: ");
+                        topic.title = Console.ReadLine();
+                        Console.WriteLine("Uusi otsikko on: " + topic.title);
+
+                        var muutos = testiYhteys.Topics.Where(x => x.Id == updateID).Single();
+                        muutos.Title = topic.title;
+                        testiYhteys.SaveChanges();
+                    }
+                }
+                else if (paivitaOtsikko == "n")
+                {
+                    Console.WriteLine("Kiitos tiedoista.");
+
+                }
+
+
+
+
+
+            }
+        }
+        //WANHAA
+
+        /* Console.WriteLine("Haluatko päivittää Id:n? n/y: ");
+           var paivitaID = Console.ReadLine();
+
+           if (paivitaID == "y")
+           {
+               foreach (var aId in tList.Select(a => a.Id))
+               {
+                   Console.WriteLine("Anna uusi ID: ");
+                   topic.Id = int.Parse(Console.ReadLine());
+                   Console.WriteLine("Uusi ID on: " + topic.Id);
+
+               }
+
+           }
+           else if (paivitaID == "n")
+           {
+               Console.WriteLine("Kiitos tiedoista.");
+
+           }*/
+
+        /*Topic oFound = tList.Find(oTop => oTop.Id.Equals(sSearch));
+
+            if (oFound != null)
+            {
+                Console.WriteLine("Id löytyi!");
+            }
+            else
+            {
+                Console.WriteLine("Id ei löytynyt");
+            }
+
+            Topic otsikko = tList.Find(oTit => oTit.title.Equals(otsikonHaku));
+
+            if (otsikko != null)
+            {
+                Console.WriteLine("Otsikko löytyi!");
+            }
+            else
+            {
+                Console.WriteLine("Otikkoa ei löytynyt");
+            }*/
+        /*Console.WriteLine("Haluatko poistaa ID:n? y/n? ");
+         var poistaId = Console.ReadLine();
+
+         if (poistaId == "y")
+         {
+             //tList.RemoveAll(x => x.Id == poistaId);
+             Console.WriteLine("Anna poistettava ID-numero: ");
+             int chunkID = int.Parse(Console.ReadLine());
+             tList.RemoveAll(x => x.Id == chunkID);
+             Console.WriteLine(chunkID + " on nyt poistettu");
+
+
+         }
+
+
+         else
+         {
+             Console.WriteLine("Id säilytettiin.");
+         }
+     }*/
+
+       /* Console.WriteLine("Haluatko poistaa otsikon? y/n? ");
+            var poistaOtsikko = Console.ReadLine();
+
+            if (poistaOtsikko == "y")
+            {
+                //tList.RemoveAll(x => x.Id == poistaId);
+                Console.WriteLine("Anna poistettava otsikko: ");
+                string chunkTitle = Console.ReadLine();
+        tList.RemoveAll(x => x.title == chunkTitle);
+                Console.WriteLine(chunkTitle + " on nyt poistettu");
+            }
+
+            else
+            {
+                Console.WriteLine("Otsikko säilytettiin.");
             }
 
 
+Console.WriteLine(File.ReadAllText(polku));
+       */
 
-        }
-
-
-        class Topic
+class Topic
         {
 
             public int Id { get; set; }
