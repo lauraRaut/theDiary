@@ -199,6 +199,7 @@ namespace theDiary
                 if (poistaOtsikko == "n")
                 {
                     Console.WriteLine("ID:tä ei poistettu.");
+                    Console.WriteLine("Hienosti menee.");
                 }
 
 
