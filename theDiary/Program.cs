@@ -200,7 +200,11 @@ namespace theDiary
                 if (poistaOtsikko == "n")
                 {
                     Console.WriteLine("ID:tä ei poistettu.");
+
                     Console.WriteLine("Tämän rivin pitäisi sekoittaa kaikki");
+
+                    Console.WriteLine("Tähän tehtiin muutos");
+
                 }
 
 
