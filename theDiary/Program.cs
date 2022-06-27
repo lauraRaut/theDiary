@@ -169,7 +169,6 @@ namespace theDiary
 
                 Console.WriteLine("Viimeisin Id on: " + viimeisin);
                 //jos haluaisi lisätä yhden lisää juoksevasti koodissa
-                // yllä olisi luotuna puvlic static int GlobalID = 1;
                 //GlobalID = viimeisin++;
 
                 Console.WriteLine("Hae Id: ");
@@ -201,6 +200,7 @@ namespace theDiary
                 if (poistaOtsikko == "n")
                 {
                     Console.WriteLine("ID:tä ei poistettu.");
+                    Console.WriteLine("Hienosti menee.");
                 }
 
 
