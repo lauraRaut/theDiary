@@ -181,6 +181,7 @@ namespace theDiary
                 if (sSearch == haku.Id)
                 {
                     Console.WriteLine(haku.Id + " Löytyi.");
+                    Console.WriteLine("olet onnen Pekka!");
                 }
                 else
                 {
