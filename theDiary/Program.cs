@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using theDiary.Models;
+using LauraJaChristianHarkka;
 
 
 
@@ -19,8 +20,8 @@ namespace theDiary
         static void Main(string[] args)
         {
 
-
-
+            Class1 oliomme = new Class1();
+            
 
             String polku = @"C:\Users\laura\source\repos\theDiary\theDiary\theDiaryReadline.txt";
 
@@ -39,6 +40,7 @@ namespace theDiary
             topic.Id = int.Parse(Console.ReadLine());*/
 
 
+
             Console.WriteLine("Aiheen otsikko: ");
             topic.title = Console.ReadLine();
 
@@ -55,7 +57,9 @@ namespace theDiary
             topic.source = Console.ReadLine();
 
             topic.StartLearningDate = new DateTime(2020, 12, 24);
-            Console.WriteLine("Aloituspäivä: " + topic.StartLearningDate);
+            Console.WriteLine("Aloituspäivä: " + topic.StartLearningDate.ToShortDateString());
+            bool result = oliomme.IsFuture(topic.StartLearningDate);
+            Console.WriteLine(result);
 
             Console.WriteLine("Onko aiheen opiskelu kesken? Vastaa n/y");
             string InProgress = Console.ReadLine();
@@ -200,11 +204,7 @@ namespace theDiary
                 if (poistaOtsikko == "n")
                 {
                     Console.WriteLine("ID:tä ei poistettu.");
-
-                    Console.WriteLine("Tämän rivin pitäisi sekoittaa kaikki");
-
-                    Console.WriteLine("Tähän tehtiin muutos");
-
+                    Console.WriteLine("Hienosti menee.");
                 }
 
 
