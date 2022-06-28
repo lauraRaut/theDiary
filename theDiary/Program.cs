@@ -78,11 +78,15 @@ namespace theDiary
                 topic.InProgress = false;
                 Console.WriteLine("Koska aiheen opiskelu päättyi? - Syötä muodossa xx/xx/xxxx ");
                 topic.CompletionDate = Convert.ToDateTime(Console.ReadLine());
-                TimeSpan opiskeltuAika = topic.CompletionDate - topic.StartLearningDate;
-                Console.WriteLine("Käytit opiskeluun aikaa: " + opiskeltuAika.TotalDays + " päivää");
+                //TimeSpan opiskeltuAika = topic.CompletionDate - topic.StartLearningDate;
+                //Console.WriteLine("Käytit opiskeluun aikaa: " + opiskeltuAika.TotalDays + " päivää");
+
+            
 
             }
 
+            oliomme.Start((DateTime)topic.StartLearningDate, (double)topic.EstimatedTimeToMaster);
+            oliomme.timeSpent(topic.StartLearningDate, topic.CompletionDate);
 
 
 
