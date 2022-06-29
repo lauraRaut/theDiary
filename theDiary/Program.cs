@@ -57,6 +57,7 @@ namespace theDiary
                     break;
                 }
 
+                // tutkinnassa :D
                 catch (NullReferenceException)
                 {
                     Console.WriteLine("Kirjoitathan kokonaisluvun, kiitos.");
@@ -65,9 +66,7 @@ namespace theDiary
                 catch
                 {
                     Console.WriteLine("Error! Yritä uudelleen kirjoittamalla kokonaislukuja.");
-                }
-
-              
+                }  
 
             }
 
@@ -77,11 +76,12 @@ namespace theDiary
                 {
                     Console.WriteLine("Kauan käytit aikaa?: ");
                     topic.TimeSpent = double.Parse(Console.ReadLine());
+                    break;
                 }
 
                 catch
                 {
-                    Console.WriteLine("Error!");
+                    Console.WriteLine("Error! Yritä uudelleen kirjoittamalla kokonaislukuja.");
                 }
             }
 
@@ -119,6 +119,9 @@ namespace theDiary
 
             oliomme.Start((DateTime)topic.StartLearningDate, (double)topic.EstimatedTimeToMaster);
             oliomme.timeSpent(topic.StartLearningDate, topic.CompletionDate);
+
+            TimeSpan ts = TimeSpan.FromDays((long)topic.EstimatedTimeToMaster);
+            oliomme.IsLate((DateTime)topic.StartLearningDate, (DateTime)topic.CompletionDate, ts);
 
 
 
