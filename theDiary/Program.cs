@@ -57,27 +57,32 @@ namespace theDiary
                     break;
                 }
 
+                catch (NullReferenceException)
+                {
+                    Console.WriteLine("Kirjoitathan kokonaisluvun, kiitos.");
+                }
 
                 catch
                 {
-                    Console.WriteLine("Error! Yritä uudelleen kirjoittamalla numeroita.");
+                    Console.WriteLine("Error! Yritä uudelleen kirjoittamalla kokonaislukuja.");
                 }
 
+              
+
             }
 
-            try
+            while (true)
             {
-                Console.WriteLine("Kauan käytit aikaa?: ");
-                topic.TimeSpent = double.Parse(Console.ReadLine());
-            }
+                try
+                {
+                    Console.WriteLine("Kauan käytit aikaa?: ");
+                    topic.TimeSpent = double.Parse(Console.ReadLine());
+                }
 
-            catch
-            {
-                Console.WriteLine("Error!");
-            }
-            finally
-            {
-                Console.WriteLine("Yritä uudelleen kirjoittamalla numeroita!");
+                catch
+                {
+                    Console.WriteLine("Error!");
+                }
             }
 
             Console.WriteLine("Mahdollinen lähde, esim. web url tai kirja");
