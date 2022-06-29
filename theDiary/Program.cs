@@ -47,11 +47,38 @@ namespace theDiary
             Console.WriteLine("Aiheen kuvaus: ");
             topic.description = Console.ReadLine();
 
-            Console.WriteLine("Kuinka kauan arvioit aikaa kuluvan tehtävään?: ");
-            topic.EstimatedTimeToMaster = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Kauan käytit aikaa?: ");
-            topic.TimeSpent = double.Parse(Console.ReadLine());
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Kuinka kauan arvioit aikaa kuluvan tehtävään?: ");
+                    topic.EstimatedTimeToMaster = int.Parse(Console.ReadLine());
+                    break;
+                }
+
+
+                catch
+                {
+                    Console.WriteLine("Error! Yritä uudelleen kirjoittamalla numeroita.");
+                }
+
+            }
+
+            try
+            {
+                Console.WriteLine("Kauan käytit aikaa?: ");
+                topic.TimeSpent = double.Parse(Console.ReadLine());
+            }
+
+            catch
+            {
+                Console.WriteLine("Error!");
+            }
+            finally
+            {
+                Console.WriteLine("Yritä uudelleen kirjoittamalla numeroita!");
+            }
 
             Console.WriteLine("Mahdollinen lähde, esim. web url tai kirja");
             topic.source = Console.ReadLine();
@@ -266,6 +293,7 @@ namespace theDiary
 
             }
         }
+            
         //WANHAA
 
         /* Console.WriteLine("Haluatko päivittää Id:n? n/y: ");
