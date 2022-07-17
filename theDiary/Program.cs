@@ -1,11 +1,17 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Linq;
 using theDiary.Models;
 using LauraJaChristianHarkka;
 
 
+// Kysy Heidiltä/Martilta: 
+//  - Tarkastetaan, onko awaitit nyt oikein
+//  - Tallennus tapahtuu, kun aiheen opiskelu ei ole kesken, siirtyy hakuun, haku ei toimi
+//  - jos opiskelu on kesken, kaatuu arvioidun ajan syötön jälkeen eikä tiedot tallennu kantaan.
+//  - deleteID toimi aiemmin testatessa, kun search ei toiminut. Martin vinkkaama ToList poistettu.
 
 
 
@@ -14,16 +20,16 @@ namespace theDiary
     class Program
     {
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
 
             
-            //var topic = TietojenKysely();
+            var topic = TietojenKysely();
 
-            //Tallennus(topic);
-           // SearchTitleAndId();
-            DeleteID();
-            UpdateTitle();
+            await Tallennus(topic);
+            await SearchTitleAndId();
+            await DeleteID();
+            await UpdateTitle();
 
         }
 
@@ -78,13 +84,12 @@ namespace theDiary
                     Console.WriteLine("Error! Yritä uudelleen kirjoittamalla kokonaislukuja.");
                 }
 
-
             }
             return topic;
 
         }
 
-       public static void Tallennus(Topic topic)
+       public static async Task Tallennus(Topic topic)
         {
             using (theDiaryContext testiYhteys = new theDiaryContext())
             {
@@ -102,15 +107,14 @@ namespace theDiary
 
 
                 };
-                testiYhteys.Topics.Add(uusi);
+                await Task.Run(()=>testiYhteys.Topics.Add(uusi));
                 testiYhteys.SaveChanges();
 
             }
-            
-
+ 
         }
 
-        public static void SearchTitleAndId()
+        public static async Task SearchTitleAndId()
         {
             using (theDiaryContext testiYhteys = new theDiaryContext())
             {
@@ -118,11 +122,11 @@ namespace theDiary
                 string testihaku = Console.ReadLine();
                 var hakukannasta = testiYhteys.Topics.Select(topic => topic);
               
-                //hakukannasta = hakukannasta.Where(otsikko => otsikko.Title == testihaku).ToList();
-                //var hakukannasta = testiYhteys.Topics.Where(otsikko => otsikko.Title == testihaku);
+                //hakukannasta = hakukannasta.Where(otsikko => otsikko.Title == testihaku);
+                var hakuKannastaKaksi = await Task.Run(()=>testiYhteys.Topics.Where(otsikko => otsikko.Title == testihaku));
                 //jos haettaisiin kaikki otsikot tietokannasta, select Wheren tilalle ja otsikko => otsikko)
 
-                foreach (var haetaanvaan in hakukannasta)
+                foreach (var haetaanvaan in hakuKannastaKaksi)
                 {
                     Console.WriteLine(haetaanvaan);
                 }
@@ -135,13 +139,13 @@ namespace theDiary
 
         }
 
-        public static void DeleteID()
+        public static async Task DeleteID()
         {
             using (theDiaryContext testiYhteys = new theDiaryContext())
             {
                 Console.WriteLine("Hae Id: ");
                 int sSearch = int.Parse(Console.ReadLine());
-                var haku = testiYhteys.Topics.Where(x => x.Id == sSearch).Single();
+                var haku = await Task.Run(()=>testiYhteys.Topics.Where(x => x.Id == sSearch).Single());
                 //haku.Id = topic.Id;
                 //testiYhteys.SaveChanges();
 
@@ -174,7 +178,7 @@ namespace theDiary
             }
         }
 
-           public static void UpdateTitle()
+           public static async Task UpdateTitle()
             {
                 using (theDiaryContext testiYhteys = new theDiaryContext())
 
@@ -190,7 +194,7 @@ namespace theDiary
                             string uusiOtsikko = Console.ReadLine();
                             Console.WriteLine("Uusi otsikko on: " + uusiOtsikko);
 
-                            var muutos = testiYhteys.Topics.Where(x => x.Id == updateID).Single();
+                            var muutos = await Task.Run(()=>testiYhteys.Topics.Where(x => x.Id == updateID).Single());
                             muutos.Title = uusiOtsikko;
                             testiYhteys.SaveChanges();
                     }
