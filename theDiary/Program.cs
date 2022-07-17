@@ -12,6 +12,9 @@ using LauraJaChristianHarkka;
 //  - Tallennus tapahtuu, kun aiheen opiskelu ei ole kesken, siirtyy hakuun, haku ei toimi
 //  - jos opiskelu on kesken, kaatuu arvioidun ajan syötön jälkeen eikä tiedot tallennu kantaan.
 //  - deleteID toimi aiemmin testatessa, kun search ei toiminut. Martin vinkkaama ToList poistettu.
+//  - Liittyykö luokkakirjastoon?
+
+//  - Main menun while-loopin break.
 
 
 
@@ -23,6 +26,7 @@ namespace theDiary
         static async Task Main(string[] args)
         {
 
+            await MainMenu();
             
             var topic = TietojenKysely();
 
@@ -30,6 +34,74 @@ namespace theDiary
             await SearchTitleAndId();
             await DeleteID();
             await UpdateTitle();
+
+        }
+
+        public static async Task<bool> MainMenu()
+
+        {
+            Console.WriteLine("     Tervetuloa Lauran oppimispäiväkirjaan.");
+            Console.WriteLine("     Mitä haluat hakea?");
+
+            Console.WriteLine("     1. Tietojen syöttö.");
+            Console.WriteLine("     2. Otsikon haku tietokannasta. ");
+            Console.WriteLine("     3. Id:n poisto tietokannasta. ");
+            Console.WriteLine("     4. Otsikon päivitys. ");
+            Console.WriteLine("     5. Exit. ");
+         
+
+            bool userInput = int.TryParse(Console.ReadLine(), out int userChoice);
+            if(!userInput)
+            {
+                Console.WriteLine("     Syötä numero 1-5. ");
+                return true;
+            }
+
+            else
+            { 
+                while (true)
+                
+                    {
+                    switch (userChoice)
+                    {
+                        case 1:
+                            {
+                                TietojenKysely();
+                                return true;
+                            }
+
+                        case 2:
+                            {
+                                await SearchTitleAndId();
+                                return true;
+                            }
+
+                        case 3:
+                            {
+                                await DeleteID();
+                                return true;
+                            }
+
+                        case 4:
+                            {
+                                await UpdateTitle();
+                                return true;
+                            }
+                        case 5:
+                            {
+                                Console.WriteLine("     Kiitos käynnistä. ");
+                                break;
+
+                            }
+
+                        default:
+                            {
+                                Console.WriteLine("     Syötä numero 1-5. ");
+                                return false;
+                            }
+                    }
+                }
+            }
 
         }
 
@@ -147,7 +219,7 @@ namespace theDiary
                 int sSearch = int.Parse(Console.ReadLine());
                 var haku = await Task.Run(()=>testiYhteys.Topics.Where(x => x.Id == sSearch).Single());
                 //haku.Id = topic.Id;
-                //testiYhteys.SaveChanges();
+                testiYhteys.SaveChanges();
 
                 if (sSearch == haku.Id)
                 {
