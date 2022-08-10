@@ -15,6 +15,6 @@ namespace theDiary.Models
         public string Source { get; set; }
         public DateTime StartLearningDate { get; set; }
         public bool? InProgress { get; set; }
-        public DateTime CompletionDate { get; set; }
+        public DateTime? CompletionDate { get; set; }
     }
 }

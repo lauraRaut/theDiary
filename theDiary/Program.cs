@@ -26,84 +26,18 @@ namespace theDiary
         static async Task Main(string[] args)
         {
 
-            await MainMenu();
+            //await MainMenu();
             
             var topic = TietojenKysely();
 
             await Tallennus(topic);
             await SearchTitleAndId();
             await DeleteID();
-            await UpdateTitle();
+             UpdateTitle();
 
         }
 
-        public static async Task<bool> MainMenu()
-
-        {
-            Console.WriteLine("     Tervetuloa Lauran oppimispäiväkirjaan.");
-            Console.WriteLine("     Mitä haluat hakea?");
-
-            Console.WriteLine("     1. Tietojen syöttö.");
-            Console.WriteLine("     2. Otsikon haku tietokannasta. ");
-            Console.WriteLine("     3. Id:n poisto tietokannasta. ");
-            Console.WriteLine("     4. Otsikon päivitys. ");
-            Console.WriteLine("     5. Exit. ");
-         
-
-            bool userInput = int.TryParse(Console.ReadLine(), out int userChoice);
-            if(!userInput)
-            {
-                Console.WriteLine("     Syötä numero 1-5. ");
-                return true;
-            }
-
-            else
-            { 
-                while (true)
-                
-                    {
-                    switch (userChoice)
-                    {
-                        case 1:
-                            {
-                                TietojenKysely();
-                                return true;
-                            }
-
-                        case 2:
-                            {
-                                await SearchTitleAndId();
-                                return true;
-                            }
-
-                        case 3:
-                            {
-                                await DeleteID();
-                                return true;
-                            }
-
-                        case 4:
-                            {
-                                await UpdateTitle();
-                                return true;
-                            }
-                        case 5:
-                            {
-                                Console.WriteLine("     Kiitos käynnistä. ");
-                                break;
-
-                            }
-
-                        default:
-                            {
-                                Console.WriteLine("     Syötä numero 1-5. ");
-                                return false;
-                            }
-                    }
-                }
-            }
-
-        }
+     
 
         public static Topic TietojenKysely()
 
@@ -136,7 +70,13 @@ namespace theDiary
                 topic.InProgress = false;
                 Console.WriteLine("Koska aiheen opiskelu päättyi? - Syötä muodossa xx/xx/xxxx ");
                 topic.CompletionDate = Convert.ToDateTime(Console.ReadLine());
-                topic.TimeSpent = Convert.ToInt32(Class1.timeSpent(topic.StartLearningDate, topic.CompletionDate));
+
+                if (topic.CompletionDate != null)
+          
+                {
+                    DateTime apumuuutaja = topic.CompletionDate ?? DateTime.Now;
+                    topic.TimeSpent = Convert.ToInt32(Class1.timeSpent(topic.StartLearningDate, apumuuutaja));
+                }
 
             }
 
@@ -195,12 +135,21 @@ namespace theDiary
                 var hakukannasta = testiYhteys.Topics.Select(topic => topic);
               
                 //hakukannasta = hakukannasta.Where(otsikko => otsikko.Title == testihaku);
-                var hakuKannastaKaksi = await Task.Run(()=>testiYhteys.Topics.Where(otsikko => otsikko.Title == testihaku));
+                IEnumerable<Topic> hakuKannastaKaksi = await Task.Run(()=>testiYhteys.Topics.Where(otsikko => otsikko.Title == testihaku));
                 //jos haettaisiin kaikki otsikot tietokannasta, select Wheren tilalle ja otsikko => otsikko)
 
-                foreach (var haetaanvaan in hakuKannastaKaksi)
+                try
                 {
-                    Console.WriteLine(haetaanvaan);
+                    foreach (var haetaanvaan in hakuKannastaKaksi)
+                    {
+                        Console.WriteLine(haetaanvaan);
+
+                    }
+                }
+
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.Message);
                 }
 
                 var viimeisin = testiYhteys.Topics.Max(topikki => topikki.Id);
@@ -250,7 +199,7 @@ namespace theDiary
             }
         }
 
-           public static async Task UpdateTitle()
+           public static void UpdateTitle()
             {
                 using (theDiaryContext testiYhteys = new theDiaryContext())
 
@@ -266,7 +215,7 @@ namespace theDiary
                             string uusiOtsikko = Console.ReadLine();
                             Console.WriteLine("Uusi otsikko on: " + uusiOtsikko);
 
-                            var muutos = await Task.Run(()=>testiYhteys.Topics.Where(x => x.Id == updateID).Single());
+                            var muutos = testiYhteys.Topics.Where(x => x.Id == updateID).Single();
                             muutos.Title = uusiOtsikko;
                             testiYhteys.SaveChanges();
                     }
