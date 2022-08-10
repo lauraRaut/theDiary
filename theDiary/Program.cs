@@ -142,7 +142,7 @@ namespace theDiary
                 {
                     foreach (var haetaanvaan in hakuKannastaKaksi)
                     {
-                        Console.WriteLine(haetaanvaan);
+                        Console.WriteLine("Hakemallasi otsikolla löytyi ID: " + haetaanvaan.Id + " Otsikko: " + haetaanvaan.Title);
 
                     }
                 }
@@ -172,7 +172,7 @@ namespace theDiary
 
                 if (sSearch == haku.Id)
                 {
-                    Console.WriteLine(haku.Id + " Löytyi.");
+                    Console.WriteLine(sSearch + " Löytyi.");
                     Console.WriteLine("olet onnen Pekka!");
                 }
                 else
