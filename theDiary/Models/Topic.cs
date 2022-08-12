@@ -18,3 +18,4 @@ namespace theDiary.Models
         public DateTime? CompletionDate { get; set; }
     }
 }
+

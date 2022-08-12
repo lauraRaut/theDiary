@@ -7,14 +7,7 @@ using theDiary.Models;
 using LauraJaChristianHarkka;
 
 
-// Kysy Heidiltä/Martilta: 
-//  - Tarkastetaan, onko awaitit nyt oikein
-//  - Tallennus tapahtuu, kun aiheen opiskelu ei ole kesken, siirtyy hakuun, haku ei toimi
-//  - jos opiskelu on kesken, kaatuu arvioidun ajan syötön jälkeen eikä tiedot tallennu kantaan.
-//  - deleteID toimi aiemmin testatessa, kun search ei toiminut. Martin vinkkaama ToList poistettu.
-//  - Liittyykö luokkakirjastoon?
 
-//  - Main menun while-loopin break.
 
 
 
@@ -24,22 +17,80 @@ namespace theDiary
     {
 
         static async Task Main(string[] args)
+        { 
+            while (true)
         {
+                Console.WriteLine(@"  
+           .od88888888bo.      
+       .od8888888888888888bo.
+   .od888888888888888888888888bo.
+od88888888888888888888888888888888bo
+ `~888888888888888888888888888888~'
+    `~888888888888888888888888~'|
+       `~888888888888888888~'   |
+         |`~888888888888~'|     |
+         \   `~888888~'   /    |||
+          `-_   `~~'   _-'     ||| 
+             `--____--'         |");
 
             //await MainMenu();
             
-            var topic = TietojenKysely();
+            Console.WriteLine("     Valikko");
+            Console.WriteLine("     1) Tietojen kysely ja tallennus tietokantaan ");
+            Console.WriteLine("     2) Otsikon ja Id:n haku tietokannasta ");
+            Console.WriteLine("     3) ID:n poisto tietokannasta ");
+            Console.WriteLine("     4) Otsikon päivitys tietokantaan ");
+            Console.WriteLine("     5) Poistu ohjelmasta ");
 
-            await Tallennus(topic);
-            await SearchTitleAndId();
-            await DeleteID();
-             UpdateTitle();
+                int userChoice = Convert.ToInt32(Console.ReadLine());
 
-        }
+                if (userChoice == 5)
+                {
+                    break;
+                }
 
-     
+                switch (userChoice)
+                {
+                    case 1:
+                        await Tallennus(TietojenKysely());
+                        Console.WriteLine("     Tiedot tallennettiin onnistuneesti.");
+                        Console.WriteLine("     Palaa Menuun painamalla mitä tahansa näppäintä.");
+                        Console.ReadKey();
+                        break;
 
-        public static Topic TietojenKysely()
+                    case 2:
+                        await SearchTitleAndId();
+                        Console.WriteLine("     Palaa Menuun painamalla mitä tahansa näppäintä.");
+                        Console.ReadKey();
+                        break;
+
+                    case 3:
+                        await DeleteID();
+                        Console.WriteLine("     Palaa Menuun painamalla mitä tahansa näppäintä.");
+                        Console.ReadKey();
+                        break;
+                    case 4:
+                        UpdateTitle();
+                        Console.WriteLine("     Palaa Menuun painamalla mitä tahansa näppäintä.");
+                        Console.ReadKey();
+                        break;
+                }
+
+
+       /* var topic = TietojenKysely();
+
+        await Tallennus(topic);
+        await SearchTitleAndId();
+        await DeleteID();
+        UpdateTitle();*/
+
+    }
+
+
+}
+           
+
+            public static Topic TietojenKysely()
 
         {
             Topic topic = new Topic();
@@ -79,7 +130,6 @@ namespace theDiary
                 }
 
             }
-
 
             while (true)
             {
@@ -224,12 +274,16 @@ namespace theDiary
                         Console.WriteLine("Kiitos tiedoista.");
 
                     }
-                  
+             
+
+                }
+
+                
 
                 }
             }
-        }
-    }
+            }
+        
 
 
     
